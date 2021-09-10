@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import compression from "compression";
 import morgan from "morgan";
@@ -8,9 +9,11 @@ dotenv.config();
 import configRoutes from "./routes/index.js";
 
 const server = express();
+const __dirname = path.resolve();
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
+server.use(express.static(path.join(__dirname, "public")));
 server.use(cors());
 server.use(compression());
 server.use(morgan("dev"));
